@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Python online editor</title>
+</head>
+<style>
+    * {
+        margin: 0px;
+        padding: 0px;
+    }
+    
+    .ShowDiv {
+        width: 45%;
+        height: 700px;
+        background-color: aquamarine;
+    }
+    
+    .Line {
+        width: 5px;
+        height: 700px;
+        background-color: red;
+    }
+    
+    .Text {
+        width: 45%;
+        height: 10px;
+    }
+</style>
+<script src="../../../jquery-3.1.1.min.js"></script>
+</head>
+
+<body>
+    <div>
+
+        <!--Code editing area-->
+        <span class="Text" style="float: left;">Code editing area:</span><span class="Text" style="float: right;">Operation result area:</span><br>
+        <div class="ShowDiv" style="float: left;clear: both;">
+            <textarea Name="Coding" Id="Coding" style="width:100%;height: 100%;"></textarea>
+        </div>
+        <input type="button" value="Run" style="float: left;margin-left: 1%;margin-top: 350px;width: 8%;height: 5%;" onclick="request()" />
+        <!--Neutral dividing line-->
+        <!---->
+        <!--<i class="Line" style="float: left;margin-left: 1%;"></i>-->
+        <!--Operation result area-->
+        <div class="ShowDiv" style="float: right;margin-top: 0px;margin-right: 0px;">
+            <textarea Id="Result" Name="Result" style="width:100%;height: 100%;" disabled></textarea>
+        </div>
+
+
+
+    </div>
+
+    <body>
+        <script type="text/javascript">
+            function request() {
+                $.ajax({
+
+                    type: "post",
+
+                    url: '/index.php/index/index/Runing',
+
+                    //dataType: "json", 
+
+                    //contentType: "application/json",  
+
+                    async: false, //Asynchronous request
+                    data: {
+                        V: 2,
+                        Code: $("#Coding").val()
+
+                    },
+
+                    traditional: true, //Traditional serialization
+
+                    success: function(data) {
+                        $("#Result").val(data);
+                        //data Request the data returned by the background
+
+                    },
+
+                    error: function() {
+
+                    }
+
+                });
+            }
+        </script>
+
+        </html>
